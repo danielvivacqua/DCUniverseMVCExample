@@ -1,0 +1,34 @@
+﻿@model DCUniverseMVC.Models.Battle
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Battle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Hero.HeroName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hero.HeroName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Villain.VillainName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Villain.VillainName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BattleID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

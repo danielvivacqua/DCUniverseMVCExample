@@ -1,0 +1,50 @@
+﻿@model DCUniverseMVC.Models.Nemesi
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Nemesi</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NemesisName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NemesisName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InJail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InJail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfHenchmen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfHenchmen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hero.HeroName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hero.HeroName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.NemesisID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

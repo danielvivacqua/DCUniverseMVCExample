@@ -1,0 +1,42 @@
+﻿@model DCUniverseMVC.Models.Villain
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Villain</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VillainName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VillainName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PowerLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PowerLevel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InJail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InJail)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.VillainID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DCUniverseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Battle">
+          <Key>
+            <PropertyRef Name="BattleID" />
+          </Key>
+          <Property Name="BattleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HeroID" Type="int" Nullable="false" />
+          <Property Name="VillainID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hero">
+          <Key>
+            <PropertyRef Name="HeroID" />
+          </Key>
+          <Property Name="HeroID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HeroName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecretIdentity" Type="varchar" MaxLength="100" />
+          <Property Name="HasCape" Type="bit" Nullable="false" />
+          <Property Name="PowerLevel" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nemesis">
+          <Key>
+            <PropertyRef Name="NemesisID" />
+          </Key>
+          <Property Name="NemesisID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NemesisName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="InJail" Type="bit" Nullable="false" />
+          <Property Name="NumberOfHenchmen" Type="int" Nullable="false" />
+          <Property Name="HeroID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Villain">
+          <Key>
+            <PropertyRef Name="VillainID" />
+          </Key>
+          <Property Name="VillainID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VillainName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PowerLevel" Type="int" Nullable="false" />
+          <Property Name="InJail" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Battle_Hero">
+          <End Role="Hero" Type="Self.Hero" Multiplicity="1" />
+          <End Role="Battle" Type="Self.Battle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hero">
+              <PropertyRef Name="HeroID" />
+            </Principal>
+            <Dependent Role="Battle">
+              <PropertyRef Name="HeroID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Battle_Villain">
+          <End Role="Villain" Type="Self.Villain" Multiplicity="1" />
+          <End Role="Battle" Type="Self.Battle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Villain">
+              <PropertyRef Name="VillainID" />
+            </Principal>
+            <Dependent Role="Battle">
+              <PropertyRef Name="VillainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nemesis_Hero">
+          <End Role="Hero" Type="Self.Hero" Multiplicity="1" />
+          <End Role="Nemesis" Type="Self.Nemesis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hero">
+              <PropertyRef Name="HeroID" />
+            </Principal>
+            <Dependent Role="Nemesis">
+              <PropertyRef Name="HeroID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DCUniverseModelStoreContainer">
+          <EntitySet Name="Battle" EntityType="Self.Battle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hero" EntityType="Self.Hero" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nemesis" EntityType="Self.Nemesis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Villain" EntityType="Self.Villain" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Battle_Hero" Association="Self.FK_Battle_Hero">
+            <End Role="Hero" EntitySet="Hero" />
+            <End Role="Battle" EntitySet="Battle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Battle_Villain" Association="Self.FK_Battle_Villain">
+            <End Role="Villain" EntitySet="Villain" />
+            <End Role="Battle" EntitySet="Battle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nemesis_Hero" Association="Self.FK_Nemesis_Hero">
+            <End Role="Hero" EntitySet="Hero" />
+            <End Role="Nemesis" EntitySet="Nemesis" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DCUniverseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Battle">
+          <Key>
+            <PropertyRef Name="BattleID" />
+          </Key>
+          <Property Name="BattleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HeroID" Type="Int32" Nullable="false" />
+          <Property Name="VillainID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Hero" Relationship="Self.FK_Battle_Hero" FromRole="Battle" ToRole="Hero" />
+          <NavigationProperty Name="Villain" Relationship="Self.FK_Battle_Villain" FromRole="Battle" ToRole="Villain" />
+        </EntityType>
+        <EntityType Name="Hero">
+          <Key>
+            <PropertyRef Name="HeroID" />
+          </Key>
+          <Property Name="HeroID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HeroName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SecretIdentity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HasCape" Type="Boolean" Nullable="false" />
+          <Property Name="PowerLevel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Battles" Relationship="Self.FK_Battle_Hero" FromRole="Hero" ToRole="Battle" />
+          <NavigationProperty Name="Nemesis" Relationship="Self.FK_Nemesis_Hero" FromRole="Hero" ToRole="Nemesis" />
+        </EntityType>
+        <EntityType Name="Nemesi">
+          <Key>
+            <PropertyRef Name="NemesisID" />
+          </Key>
+          <Property Name="NemesisID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NemesisName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="InJail" Type="Boolean" Nullable="false" />
+          <Property Name="NumberOfHenchmen" Type="Int32" Nullable="false" />
+          <Property Name="HeroID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Hero" Relationship="Self.FK_Nemesis_Hero" FromRole="Nemesis" ToRole="Hero" />
+        </EntityType>
+        <EntityType Name="Villain">
+          <Key>
+            <PropertyRef Name="VillainID" />
+          </Key>
+          <Property Name="VillainID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VillainName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PowerLevel" Type="Int32" Nullable="false" />
+          <Property Name="InJail" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Battles" Relationship="Self.FK_Battle_Villain" FromRole="Villain" ToRole="Battle" />
+        </EntityType>
+        <Association Name="FK_Battle_Hero">
+          <End Role="Hero" Type="Self.Hero" Multiplicity="1" />
+          <End Role="Battle" Type="Self.Battle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hero">
+              <PropertyRef Name="HeroID" />
+            </Principal>
+            <Dependent Role="Battle">
+              <PropertyRef Name="HeroID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Battle_Villain">
+          <End Role="Villain" Type="Self.Villain" Multiplicity="1" />
+          <End Role="Battle" Type="Self.Battle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Villain">
+              <PropertyRef Name="VillainID" />
+            </Principal>
+            <Dependent Role="Battle">
+              <PropertyRef Name="VillainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nemesis_Hero">
+          <End Role="Hero" Type="Self.Hero" Multiplicity="1" />
+          <End Role="Nemesis" Type="Self.Nemesi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hero">
+              <PropertyRef Name="HeroID" />
+            </Principal>
+            <Dependent Role="Nemesis">
+              <PropertyRef Name="HeroID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DCUniverseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Battles" EntityType="Self.Battle" />
+          <EntitySet Name="Heroes" EntityType="Self.Hero" />
+          <EntitySet Name="Nemesis" EntityType="Self.Nemesi" />
+          <EntitySet Name="Villains" EntityType="Self.Villain" />
+          <AssociationSet Name="FK_Battle_Hero" Association="Self.FK_Battle_Hero">
+            <End Role="Hero" EntitySet="Heroes" />
+            <End Role="Battle" EntitySet="Battles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Battle_Villain" Association="Self.FK_Battle_Villain">
+            <End Role="Villain" EntitySet="Villains" />
+            <End Role="Battle" EntitySet="Battles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nemesis_Hero" Association="Self.FK_Nemesis_Hero">
+            <End Role="Hero" EntitySet="Heroes" />
+            <End Role="Nemesis" EntitySet="Nemesis" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DCUniverseModelStoreContainer" CdmEntityContainer="DCUniverseEntities">
+          <EntitySetMapping Name="Battles">
+            <EntityTypeMapping TypeName="DCUniverseModel.Battle">
+              <MappingFragment StoreEntitySet="Battle">
+                <ScalarProperty Name="BattleID" ColumnName="BattleID" />
+                <ScalarProperty Name="HeroID" ColumnName="HeroID" />
+                <ScalarProperty Name="VillainID" ColumnName="VillainID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Heroes">
+            <EntityTypeMapping TypeName="DCUniverseModel.Hero">
+              <MappingFragment StoreEntitySet="Hero">
+                <ScalarProperty Name="HeroID" ColumnName="HeroID" />
+                <ScalarProperty Name="HeroName" ColumnName="HeroName" />
+                <ScalarProperty Name="SecretIdentity" ColumnName="SecretIdentity" />
+                <ScalarProperty Name="HasCape" ColumnName="HasCape" />
+                <ScalarProperty Name="PowerLevel" ColumnName="PowerLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nemesis">
+            <EntityTypeMapping TypeName="DCUniverseModel.Nemesi">
+              <MappingFragment StoreEntitySet="Nemesis">
+                <ScalarProperty Name="NemesisID" ColumnName="NemesisID" />
+                <ScalarProperty Name="NemesisName" ColumnName="NemesisName" />
+                <ScalarProperty Name="InJail" ColumnName="InJail" />
+                <ScalarProperty Name="NumberOfHenchmen" ColumnName="NumberOfHenchmen" />
+                <ScalarProperty Name="HeroID" ColumnName="HeroID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Villains">
+            <EntityTypeMapping TypeName="DCUniverseModel.Villain">
+              <MappingFragment StoreEntitySet="Villain">
+                <ScalarProperty Name="VillainID" ColumnName="VillainID" />
+                <ScalarProperty Name="VillainName" ColumnName="VillainName" />
+                <ScalarProperty Name="PowerLevel" ColumnName="PowerLevel" />
+                <ScalarProperty Name="InJail" ColumnName="InJail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

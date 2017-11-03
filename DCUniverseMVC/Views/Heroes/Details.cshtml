@@ -1,0 +1,50 @@
+﻿@model DCUniverseMVC.Models.Hero
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Hero</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HeroName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeroName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecretIdentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecretIdentity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HasCape)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HasCape)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PowerLevel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PowerLevel)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.HeroID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
